@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_zs",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_zs",
+  "parent":{
+    "name":"zombie-survival",
+    "path":"zombie-survival.yyp",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
