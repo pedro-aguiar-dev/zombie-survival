@@ -1,8 +1,5 @@
-
-// Inherit the parent event
 event_inherited();
 
-// Hero specific stuff.
 name = "Fizzy Spellmage";
 slogan = "You're a wizard, Fizzy.";
 locked_sprite = spr_spellmage_locked;

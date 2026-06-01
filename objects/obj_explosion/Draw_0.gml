@@ -1,8 +1,7 @@
-/// obj_explosion - Draw (círculo que expande e some)
 if (life > 0) life -= 1;
-var _t = 1 - (life / life_max);          // 0 -> 1 ao longo da vida
-var _r = radius * (0.4 + 0.6 * _t);      // expande
-var _a = 0.7 * (1 - _t);                 // some
+var _t = 1 - (life / life_max);
+var _r = radius * (0.4 + 0.6 * _t);
+var _a = 0.7 * (1 - _t);
 
 draw_set_alpha(_a);
 draw_set_color(c_orange);

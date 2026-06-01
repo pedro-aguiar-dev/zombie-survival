@@ -1,8 +1,5 @@
-
-// Inherit the parent event
 event_inherited();
 
-// Hero specific stuff.
 name = "Brittany Spears";
 slogan = "Stronger than yesterday";
 locked_sprite = spr_princess_locked;

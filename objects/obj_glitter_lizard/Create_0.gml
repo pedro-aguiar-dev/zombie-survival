@@ -1,8 +1,5 @@
-
-// Inherit the parent event
 event_inherited();
 
-// Hero specific stuff.
 name = "Baby Glitterlizard";
 slogan = "His friendship is magic!";
 locked_sprite = spr_glitterlizard_locked;

@@ -1,5 +1,3 @@
-
-// Draw the total number of coins we currently have in the top right.
 draw_sprite(spr_coin_counter, 0, 940 - 80, 1);
 draw_set_font(fnt_small);
 draw_set_halign(fa_left);

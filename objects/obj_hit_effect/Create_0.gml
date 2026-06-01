@@ -1,6 +1,5 @@
-
-speed = 3;				// Starting speed.
-gravity = 0.1;				// Gravity.
-gravity_direction = 270;		// Gravity direction is pointing downwards.
-direction = random_range(0, 180);	// Random direction up/sideways.
-alarm[0] = irandom_range(60, 120);	// Lifetime alarm.
+speed = 3;
+gravity = 0.1;
+gravity_direction = 270;
+direction = random_range(0, 180);
+alarm[0] = irandom_range(60, 120);

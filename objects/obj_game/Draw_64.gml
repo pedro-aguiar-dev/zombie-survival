@@ -1,4 +1,3 @@
-/// obj_game - Draw GUI (HUD + loja entre ondas / game over)
 var _fps = game_get_speed(gamespeed_fps);
 var _gw  = display_get_gui_width();
 var _gh  = display_get_gui_height();
@@ -7,7 +6,6 @@ draw_set_font(fnt_small);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
-// ---- Barra de vida ----
 var _bx = 20, _by = 20, _bw = 240, _bh = 22;
 var _frac = (player_hp_max > 0) ? clamp(player_hp / player_hp_max, 0, 1) : 0;
 draw_set_color(c_black);
@@ -19,7 +17,6 @@ draw_rectangle(_bx, _by, _bx + _bw * _frac, _by + _bh, false);
 draw_set_color(c_white);
 draw_text(_bx + 6, _by + 3, "HP " + string(max(0, player_hp)) + " / " + string(player_hp_max));
 
-// ---- Infos da partida ----
 var _secs = survival_frames div _fps;
 draw_text(20, 54, "Onda: "   + string(wave));
 draw_text(20, 74, "Pontos: " + string(game_score));
@@ -27,7 +24,6 @@ draw_text(20, 94, "Tempo: "  + string(_secs) + "s");
 draw_text(20, 114, "Tiro x" + string(global.lvl_shot) + "  Dir x" + string(global.lvl_dir)
                  + "   MG:" + (global.mode_mg ? "ON" : "--") + "   Esp:" + zs_special_name(global.mode_special));
 
-// ---- Botões de habilidade (Bomba / Cura) ----
 var _bomb_txt = "PRONTA";
 var _heal_txt = "PRONTA";
 if (instance_exists(obj_player))
@@ -53,7 +49,6 @@ draw_set_color((_heal_txt == "PRONTA") ? c_lime : c_orange);
 draw_text(_ab.heal.x1 + 6, _ab.heal.y1 + 2, "Cura (Q): " + _heal_txt);
 draw_set_color(c_white);
 
-// ---- Barra de vida do BOSS (se houver um vivo) ----
 var _boss = noone;
 with (obj_zombie) { if (ztype == "boss") _boss = id; }
 if (_boss != noone && _boss.hp_max > 0)
@@ -71,7 +66,6 @@ if (_boss != noone && _boss.hp_max > 0)
     draw_set_color(c_white);
 }
 
-// ---- Aviso de pausa entre ondas ----
 if (state == "wave_break")
 {
     draw_set_halign(fa_center);
@@ -79,7 +73,6 @@ if (state == "wave_break")
     draw_set_halign(fa_left);
 }
 
-// ---- LOJA (fim de cada horda) ----
 if (state == "shop")
 {
     var _cx = _gw * 0.5;
@@ -147,7 +140,6 @@ if (state == "shop")
         draw_text(_L.lx + 330, _ry, _tag);
     }
 
-    // Linha "Continuar"
     var _ci  = array_length(_items);
     var _cry = _L.y0 + _ci * _L.dy + 8;
     draw_set_color((shop_sel == _ci) ? c_yellow : c_lime);
@@ -159,7 +151,6 @@ if (state == "shop")
     draw_set_halign(fa_left);
 }
 
-// ---- GAME OVER (resumo; build resetado) ----
 if (state == "gameover")
 {
     var _cx = _gw * 0.5;
@@ -182,7 +173,6 @@ if (state == "gameover")
     draw_set_color(c_orange);
     draw_text(_cx, _gh * 0.5 - 14, "Suas habilidades foram resetadas.");
 
-    // Botões Reiniciar / Menu
     var _btns = zs_gameover_btn_rects();
     var _hr = point_in_rectangle(_amx, _amy, _btns.restart.x1, _btns.restart.y1, _btns.restart.x2, _btns.restart.y2);
     var _hm = point_in_rectangle(_amx, _amy, _btns.menu.x1,    _btns.menu.y1,    _btns.menu.x2,    _btns.menu.y2);
@@ -204,6 +194,5 @@ if (state == "gameover")
     draw_set_halign(fa_left);
 }
 
-// Restaura estado de desenho
 draw_set_color(c_white);
 draw_set_alpha(1);

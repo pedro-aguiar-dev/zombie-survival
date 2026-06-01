@@ -1,4 +1,3 @@
-/// obj_bullet - Step (pavio da granada)
 if (fuse > 0)
 {
     fuse -= 1;

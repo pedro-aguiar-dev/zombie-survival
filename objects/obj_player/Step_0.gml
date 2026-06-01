@@ -1,6 +1,3 @@
-/// obj_player - Step
-
-// ---- Movimento WASD (normalizado na diagonal) ----
 var _mx = keyboard_check(ord("D")) - keyboard_check(ord("A"));
 var _my = keyboard_check(ord("S")) - keyboard_check(ord("W"));
 if (_mx != 0 || _my != 0)
@@ -10,11 +7,9 @@ if (_mx != 0 || _my != 0)
     y += (_my / _len) * move_speed;
 }
 
-// Preso dentro dos limites da arena
 x = clamp(x, arena_margin, room_width  - arena_margin);
 y = clamp(y, arena_margin, room_height - arena_margin);
 
-// ---- Tiro automático no zumbi mais próximo (padrão depende da arma equipada) ----
 if (fire_cd > 0) fire_cd -= 1;
 var _target = instance_nearest(x, y, obj_zombie);
 if (fire_cd <= 0 && instance_exists(_target))
@@ -25,14 +20,13 @@ if (fire_cd <= 0 && instance_exists(_target))
     audio_play_sound(snd_zs_shoot, 1, false, global.sfx_volume);
 }
 
-// ---- Arma especial: Bazuca OU Lança-granadas (nunca os dois) ----
 if (global.mode_special == "bazooka")
 {
     if (bazooka_cd > 0) bazooka_cd -= 1;
     else if (instance_exists(_target))
     {
         var _bd = point_direction(x, y, _target.x, _target.y);
-        zs_make_bullet(x, y, _bd, 6, damage * 3, "rocket", 90, 0);   // dano escala com o atributo Dano
+        zs_make_bullet(x, y, _bd, 6, damage * 3, "rocket", 90, 0);
         audio_play_sound(snd_zs_shoot, 1, false, global.sfx_volume);
         bazooka_cd = 60;
     }
@@ -50,7 +44,6 @@ else if (global.mode_special == "grenade")
     }
 }
 
-// ---- Cliques do mouse nos botões de habilidade do HUD (apenas jogando) ----
 var _ab      = zs_ability_btn_rects();
 var _amx     = device_mouse_x_to_gui(0);
 var _amy     = device_mouse_y_to_gui(0);
@@ -59,15 +52,13 @@ var _playing = (instance_exists(obj_game) && obj_game.state == "playing");
 var _bomb_btn = _playing && _aclick && point_in_rectangle(_amx, _amy, _ab.bomb.x1, _ab.bomb.y1, _ab.bomb.x2, _ab.bomb.y2);
 var _heal_btn = _playing && _aclick && point_in_rectangle(_amx, _amy, _ab.heal.x1, _ab.heal.y1, _ab.heal.x2, _ab.heal.y2);
 
-// ---- Habilidade BOMBA (E ou clique): explosão que destrói zumbis num raio ----
 if (bomb_cd > 0) bomb_cd -= 1;
 if ((keyboard_check_pressed(ord("E")) || _bomb_btn) && bomb_cd <= 0)
 {
-    zs_explode(x, y, bomb_radius, 9999);   // dano massivo no raio + animação de explosão
+    zs_explode(x, y, bomb_radius, 9999);
     bomb_cd = bomb_cd_max;
 }
 
-// ---- Habilidade CURA (Q ou clique): recupera parte da vida ----
 if (heal_cd > 0) heal_cd -= 1;
 if ((keyboard_check_pressed(ord("Q")) || _heal_btn) && heal_cd <= 0)
 {
@@ -75,7 +66,6 @@ if ((keyboard_check_pressed(ord("Q")) || _heal_btn) && heal_cd <= 0)
     heal_cd = heal_cd_max;
 }
 
-// ---- Animação de dano (pisca vermelho ao perder vida) ----
 if (hp < prev_hp) hurt_timer = 12;
 prev_hp = hp;
 if (hurt_timer > 0)
@@ -88,7 +78,6 @@ else
     image_blend = c_white;
 }
 
-// ---- Morte ----
 if (hp <= 0)
 {
     with (obj_game)
@@ -97,7 +86,7 @@ if (hp <= 0)
         {
             state = "gameover";
             shop_sel = 0;
-            zs_reset_build();   // game over reseta armas, atributos e pontos
+            zs_reset_build();
         }
     }
     instance_destroy();

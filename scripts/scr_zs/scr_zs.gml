@@ -1,25 +1,19 @@
-/// scr_zs - funções auxiliares de Zombie Survival 2D
-
-/// @function zs_reset_build()
-/// @description Zera o build da partida (resetado no game over).
 function zs_reset_build()
 {
-    // Atributos com nível (máx 5)
-    global.up_damage   = 0;   // Dano
-    global.up_speed    = 0;   // Velocidade (movimento)
-    global.up_firerate = 0;   // Cadência
-    global.up_maxhp    = 0;   // Vida máxima
-    global.lvl_shot    = 1;   // Tiro: balas por direção (1..5)
-    global.lvl_dir     = 1;   // Direções (1..5)
 
-    // Armas selecionáveis (sem nível)
-    global.mode_mg      = false;   // metralhadora liga/desliga (combina com qualquer especial)
-    global.mode_special = "none";  // "none" | "bazooka" | "grenade"  (bazuca XOR granada)
+    global.up_damage   = 0;
+    global.up_speed    = 0;
+    global.up_firerate = 0;
+    global.up_maxhp    = 0;
+    global.lvl_shot    = 1;
+    global.lvl_dir     = 1;
+
+    global.mode_mg      = false;
+    global.mode_special = "none";
 
     global.upgrade_points = 0;
 }
 
-/// @function zs_init_globals()
 function zs_init_globals()
 {
     if (variable_global_exists("zs_initialized")) return;
@@ -32,8 +26,6 @@ function zs_init_globals()
     zs_reset_build();
 }
 
-/// @function zs_shop_rows()
-/// @description Linhas da loja: atributos (nível, máx 5) + seleções de arma.
 function zs_shop_rows()
 {
     return [
@@ -49,20 +41,17 @@ function zs_shop_rows()
     ];
 }
 
-/// @function zs_upg_cost(_u)
 function zs_upg_cost(_u)
 {
     var _steps = variable_global_get(_u.key) - _u.minlvl;
     return _u.base * (_steps + 1);
 }
 
-/// @function zs_upg_ismax(_u)
 function zs_upg_ismax(_u)
 {
     return variable_global_get(_u.key) >= _u.maxlvl;
 }
 
-/// @function zs_special_name(_s)
 function zs_special_name(_s)
 {
     if (_s == "bazooka") return "Bazuca";
@@ -70,7 +59,6 @@ function zs_special_name(_s)
     return "Nenhum";
 }
 
-/// @function zs_shop_buy(_u)
 function zs_shop_buy(_u)
 {
     if (zs_upg_ismax(_u)) return;
@@ -82,8 +70,6 @@ function zs_shop_buy(_u)
     }
 }
 
-/// @function zs_shop_activate(_row)
-/// @description Executa a linha selecionada (compra nível, liga metralhadora ou troca especial).
 function zs_shop_activate(_row)
 {
     switch (_row.kind)
@@ -93,7 +79,7 @@ function zs_shop_activate(_row)
         break;
 
         case "buy_mg":
-            // Compra única da metralhadora
+
             if (!global.mode_mg && global.upgrade_points >= _row.cost)
             {
                 global.upgrade_points -= _row.cost;
@@ -102,7 +88,7 @@ function zs_shop_activate(_row)
         break;
 
         case "buy_special":
-            // Bazuca OU Lança-granada: só pode comprar uma por partida
+
             if (global.mode_special == "none" && global.upgrade_points >= _row.cost)
             {
                 global.upgrade_points -= _row.cost;
@@ -112,7 +98,6 @@ function zs_shop_activate(_row)
     }
 }
 
-/// @function zs_pick_zombie_type(_wave)
 function zs_pick_zombie_type(_wave)
 {
     var _r = random(1);
@@ -130,7 +115,6 @@ function zs_pick_zombie_type(_wave)
     return "small";
 }
 
-/// @function zs_spawn_zombie(_type)
 function zs_spawn_zombie(_type)
 {
     var _xx, _yy;
@@ -162,7 +146,7 @@ function zs_spawn_zombie(_type)
             _z.sprite_index = spr_boss;
             _z.hp = 120 + wave * 25; _z.move_speed = max(0.6, _base_spd * 0.5); _z.dmg = 6; _z.score_value = 400;
         break;
-        default: // small
+        default:
             _z.sprite_index = spr_zombie;
             _z.hp = _base_hp; _z.move_speed = _base_spd; _z.dmg = 1; _z.score_value = 10;
         break;
@@ -172,7 +156,6 @@ function zs_spawn_zombie(_type)
     return _z;
 }
 
-/// @function zs_make_bullet(_x,_y,_dir,_spd,_dmg,_kind,_radius,_fuse)
 function zs_make_bullet(_x, _y, _dir, _spd, _dmg, _kind, _radius, _fuse)
 {
     var _b = instance_create_layer(_x, _y, "Instances", obj_bullet);
@@ -184,8 +167,6 @@ function zs_make_bullet(_x, _y, _dir, _spd, _dmg, _kind, _radius, _fuse)
     return _b;
 }
 
-/// @function zs_player_fire(_dir)
-/// @description Canhão normal: lvl_dir direções x lvl_shot balas. Metralhadora acelera a cadência.
 function zs_player_fire(_dir)
 {
     var _spd  = 9;
@@ -210,11 +191,10 @@ function zs_player_fire(_dir)
     }
 
     var _cd = fire_cd_max;
-    if (global.mode_mg) _cd = max(3, round(_cd * 0.5));   // metralhadora = dobro de cadência
+    if (global.mode_mg) _cd = max(3, round(_cd * 0.5));
     return _cd;
 }
 
-/// @function zs_kill_zombie(_inst)
 function zs_kill_zombie(_inst)
 {
     var _val = _inst.score_value;
@@ -224,7 +204,6 @@ function zs_kill_zombie(_inst)
     instance_destroy(_inst);
 }
 
-/// @function zs_explode(_x,_y,_radius,_dmg)
 function zs_explode(_x, _y, _radius, _dmg)
 {
     var _e = instance_create_layer(_x, _y, "Instances", obj_explosion);
@@ -240,14 +219,12 @@ function zs_explode(_x, _y, _radius, _dmg)
     }
 }
 
-/// @function zs_shop_layout()
 function zs_shop_layout()
 {
     var _cx = display_get_gui_width() * 0.5;
     return { cx: _cx, lx: _cx - 220, y0: 168, dy: 26 };
 }
 
-/// @function zs_shop_hover(_mx,_my,_count,_has_continue)
 function zs_shop_hover(_mx, _my, _count, _has_continue)
 {
     var _L  = zs_shop_layout();
@@ -267,7 +244,6 @@ function zs_shop_hover(_mx, _my, _count, _has_continue)
     return -1;
 }
 
-/// @function zs_gameover_btn_rects()
 function zs_gameover_btn_rects()
 {
     var _cx = display_get_gui_width()  * 0.5;
@@ -278,7 +254,6 @@ function zs_gameover_btn_rects()
     };
 }
 
-/// @function zs_ability_btn_rects()
 function zs_ability_btn_rects()
 {
     return {

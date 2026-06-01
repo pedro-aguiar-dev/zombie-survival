@@ -1,4 +1,3 @@
-/// obj_game - Step (máquina de estados do jogo)
 var _fps = game_get_speed(gamespeed_fps);
 
 if (instance_exists(obj_player))
@@ -7,7 +6,6 @@ if (instance_exists(obj_player))
     player_hp_max = obj_player.hp_max;
 }
 
-// Mouse em coordenadas de GUI + se moveu
 var _mx = device_mouse_x_to_gui(0);
 var _my = device_mouse_y_to_gui(0);
 var _click = mouse_check_button_pressed(mb_left);
@@ -73,7 +71,6 @@ switch (state)
             to_spawn = 4 + wave * 2;
             spawn_cd = 0;
 
-            // Boss a cada 10 ondas (nasce no início da onda)
             if (wave mod 10 == 0) zs_spawn_zombie("boss");
 
             state = "playing";
@@ -81,7 +78,7 @@ switch (state)
     break;
 
     case "gameover":
-        // Apenas resumo + botões (o build já foi resetado na morte)
+
         var _btns = zs_gameover_btn_rects();
         var _hit_restart = point_in_rectangle(_mx, _my, _btns.restart.x1, _btns.restart.y1, _btns.restart.x2, _btns.restart.y2);
         var _hit_menu    = point_in_rectangle(_mx, _my, _btns.menu.x1,    _btns.menu.y1,    _btns.menu.x2,    _btns.menu.y2);

@@ -1,5 +1,3 @@
-
-// Base variables for heros.
 name = "no_name";
 slogan = "no_slogan";
 unlocked = false;

@@ -1,5 +1,3 @@
-
-// Set the monster to spawn based on the current stage.
 var _monster = obj_dracula;
 switch (stage) {
 case 0:
@@ -25,8 +23,6 @@ case 6:
 	exit;
 }
 
-// Spawn the monster.
 instance_create_layer(x, y, "Units", _monster);
 
-// Increment stage.
 stage += 1;

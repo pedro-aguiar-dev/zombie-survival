@@ -1,5 +1,3 @@
-
-// Draw the scene with all the heros around the table.
 var _x = 940 / 2;
 var _y = 80;
 draw_sprite_ext(spr_spellmage,       0, _x-80,  _y+20,    -1, 1, 0, c_white, 1.0);
@@ -11,7 +9,6 @@ draw_sprite_ext(spr_prince,          0, _x+140, _y+25, 1,  1, 0, c_white, 1.0);
 draw_sprite_ext(spr_glitterlizard,   0, _x+200, _y+30, 1,  1, 0, c_white, 1.0);
 draw_sprite(spr_table, 0, _x, _y);
 
-// Draw time taken to play to the left hand side, between the title and button.
 draw_set_font(fnt_small);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
