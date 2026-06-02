@@ -39,7 +39,8 @@ switch (state)
     case "shop":
         var _items = zs_shop_rows();
         var _continue_idx = array_length(_items);
-        var _total = _continue_idx + 1;
+        var _exit_idx = _continue_idx + 1;
+        var _total = _continue_idx + 2;
 
         if (keyboard_check_pressed(vk_up))   shop_sel = (shop_sel - 1 + _total) mod _total;
         if (keyboard_check_pressed(vk_down)) shop_sel = (shop_sel + 1) mod _total;
@@ -55,6 +56,10 @@ switch (state)
             {
                 state = "wave_break";
                 break_timer = round(1.0 * _fps);
+            }
+            else if (shop_sel == _exit_idx)
+            {
+                room_goto(rm_menu);
             }
             else
             {

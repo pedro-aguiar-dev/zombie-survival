@@ -145,9 +145,13 @@ if (state == "shop")
     draw_set_color((shop_sel == _ci) ? c_yellow : c_lime);
     draw_text(_L.lx, _cry, ((shop_sel == _ci) ? "> " : "  ") + ">> Continuar (proxima onda)");
 
+    var _sry = _cry + _L.dy;
+    draw_set_color((shop_sel == _ci + 1) ? c_yellow : c_orange);
+    draw_text(_L.lx, _sry, ((shop_sel == _ci + 1) ? "> " : "  ") + ">> Sair (Menu)");
+
     draw_set_halign(fa_center);
     draw_set_color(c_gray);
-    draw_text(_cx, _cry + _L.dy + 12, "Setas/Mouse: escolher    Enter/Clique: comprar ou Continuar");
+    draw_text(_cx, _sry + _L.dy + 12, "Setas/Mouse: escolher    Enter/Clique: comprar, Continuar ou Sair");
     draw_set_halign(fa_left);
 }
 
