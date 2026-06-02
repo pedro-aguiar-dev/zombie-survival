@@ -1,5 +1,3 @@
-// Se a tela de creditos estiver aberta, qualquer clique/tecla fecha
-// e o resto do menu fica congelado.
 if (show_credits)
 {
     if (mouse_check_button_pressed(mb_left) || keyboard_check_pressed(vk_anykey))

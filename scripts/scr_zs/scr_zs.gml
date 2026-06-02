@@ -241,7 +241,6 @@ function zs_shop_hover(_mx, _my, _count, _has_continue)
         var _cry = _L.y0 + _count * _L.dy + 8;
         if (_mx >= _x1 && _mx <= _x2 && _my >= _cry - 3 && _my <= _cry + _L.dy - 5) return _count;
 
-        // Linha "Sair" logo abaixo do "Continuar".
         var _sry = _cry + _L.dy;
         if (_mx >= _x1 && _mx <= _x2 && _my >= _sry - 3 && _my <= _sry + _L.dy - 5) return _count + 1;
     }

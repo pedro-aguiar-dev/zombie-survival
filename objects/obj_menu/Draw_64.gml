@@ -8,7 +8,6 @@ draw_set_valign(fa_top);
 draw_set_color(c_black);
 draw_rectangle(0, 0, _gw, _gh, false);
 
-// ---- Tela de creditos (sobrepoe o menu quando aberta) ----
 if (show_credits)
 {
     draw_set_halign(fa_center);
