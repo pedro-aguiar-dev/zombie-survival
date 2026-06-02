@@ -8,6 +8,47 @@ draw_set_valign(fa_top);
 draw_set_color(c_black);
 draw_rectangle(0, 0, _gw, _gh, false);
 
+// ---- Tela de creditos (sobrepoe o menu quando aberta) ----
+if (show_credits)
+{
+    draw_set_halign(fa_center);
+    draw_set_color(c_lime);
+    draw_text(_cx, _gh * 0.12, "CREDITOS");
+
+    var _team = [
+        ["Pedro Aguiar",    "Gerente de Projeto"],
+        ["Tiago Oliveira",  "Desenvolvedor"],
+        ["Victor Domynick", "Desenvolvedor"],
+        ["Pedro Igor",      "Desenvolvedor"],
+        ["Alisson Nunes",   "Desenvolvedor"],
+    ];
+
+    var _cy0 = _gh * 0.26;
+    var _cdy = 50;
+    for (var _t = 0; _t < array_length(_team); _t++)
+    {
+        var _ry = _cy0 + _t * _cdy;
+        draw_set_color(c_white);
+        draw_text(_cx, _ry, _team[_t][0]);
+        draw_set_color(c_gray);
+        draw_text(_cx, _ry + 18, _team[_t][1]);
+    }
+
+    var _ay = _cy0 + array_length(_team) * _cdy + 20;
+    draw_set_color(c_yellow);
+    draw_text(_cx, _ay, "Assets / Bibliotecas");
+    draw_set_color(c_gray);
+    draw_text(_cx, _ay + 22, "Victory SFX: Jon K. Fite");
+    draw_text(_cx, _ay + 42, "Feito com GameMaker");
+
+    draw_set_color(c_ltgray);
+    draw_text(_cx, _gh * 0.92, "Pressione qualquer tecla ou clique para voltar");
+
+    draw_set_halign(fa_left);
+    draw_set_color(c_white);
+    exit;
+}
+
 draw_set_halign(fa_center);
 draw_set_color(c_lime);
 draw_text(_cx, _gh * 0.22, "ZOMBIE SURVIVAL 2D");
@@ -24,6 +65,7 @@ var _labels = [
     "Jogar",
     "Volume Geral:  < " + _vol_geral + " >",
     "Volume SFX:    < " + _vol_sfx   + " >",
+    "Creditos",
     "Sair",
 ];
 

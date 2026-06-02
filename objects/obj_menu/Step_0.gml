@@ -1,3 +1,12 @@
+// Se a tela de creditos estiver aberta, qualquer clique/tecla fecha
+// e o resto do menu fica congelado.
+if (show_credits)
+{
+    if (mouse_check_button_pressed(mb_left) || keyboard_check_pressed(vk_anykey))
+        show_credits = false;
+    exit;
+}
+
 var _mx = device_mouse_x_to_gui(0);
 var _my = device_mouse_y_to_gui(0);
 var _click = mouse_check_button_pressed(mb_left);
@@ -50,6 +59,10 @@ switch (sel)
     break;
 
     case 3:
+        if (_confirm || _click_here) show_credits = true;
+    break;
+
+    case 4:
         if (_confirm || _click_here) game_end();
     break;
 }
