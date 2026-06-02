@@ -155,6 +155,27 @@ if (state == "shop")
     draw_set_halign(fa_left);
 }
 
+if (paused)
+{
+    var _cx = _gw * 0.5;
+
+    draw_set_alpha(0.72);
+    draw_set_color(c_black);
+    draw_rectangle(0, 0, _gw, _gh, false);
+    draw_set_alpha(1);
+
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_set_color(c_yellow);
+    draw_text(_cx, _gh * 0.5 - 16, "PAUSADO");
+    draw_set_color(c_gray);
+    draw_text(_cx, _gh * 0.5 + 16, "Pressione ESC para continuar");
+
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_set_color(c_white);
+}
+
 if (state == "gameover")
 {
     var _cx = _gw * 0.5;

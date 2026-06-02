@@ -7,6 +7,7 @@ audio_master_gain(global.master_volume);
 shop_sel = 0;
 prev_mx  = 0;
 prev_my  = 0;
+paused   = false;
 
 state           = "wave_break";
 wave            = 0;

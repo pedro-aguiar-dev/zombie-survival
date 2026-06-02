@@ -13,6 +13,18 @@ var _moved = (_mx != prev_mx) || (_my != prev_my);
 prev_mx = _mx;
 prev_my = _my;
 
+// Pause com ESC (apenas durante a jogatina).
+if (state == "playing" || state == "wave_break")
+{
+    if (keyboard_check_pressed(vk_escape))
+    {
+        paused = !paused;
+        if (paused) instance_deactivate_all(true);  // congela tudo menos o controlador
+        else        instance_activate_all();
+    }
+}
+if (paused) exit;
+
 switch (state)
 {
     case "playing":
